@@ -1,8 +1,9 @@
 const express = require("express");
+const { getAllJobs, createJob } = require("../controllers/job");
 const protectAuth = require("../middleware/protectAuth");
 
 const router = express.Router();
 
-router.route("/").get(protectAuth, (req, res) => res.send(req.userId));
+router.route("/").get(getAllJobs).post(protectAuth, createJob);
 
 module.exports = router;
