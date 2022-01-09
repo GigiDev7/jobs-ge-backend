@@ -14,12 +14,17 @@ const handleError = (err) => {
   return errors;
 };
 
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: 24 * 60 * 60 });
+};
+
 const signUp = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const newUser = await User.create({ email, password });
-    res.status(201).json({ id: newUser._id, email: newUser.email });
+    const token = createToken(newUser._id);
+    res.status(200).json({ id: newUser._id, email: newUser.email, token });
   } catch (error) {
     const errors = handleError(error);
     res.status(400).json(errors);
@@ -39,7 +44,8 @@ const login = async (req, res) => {
       res.status(400).json({ message: "Incorrect password" });
     }
 
-    res.status(200).json("logged in");
+    const token = createToken(user._id);
+    res.status(200).json({ id: user._id, email: user.email, token });
   } catch (error) {
     res.status(400).json(error);
   }
