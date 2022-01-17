@@ -58,6 +58,16 @@ const deleteJob = async (req, res) => {
   }
 };
 
+const getByCompany = async (req, res) => {
+  const { companyName } = req.params;
+  try {
+    const jobs = await Job.find({ company: companyName });
+    res.status(200).json(jobs);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 module.exports = {
   getAllJobs,
   createJob,
@@ -65,4 +75,5 @@ module.exports = {
   updateJob,
   getMyJobs,
   deleteJob,
+  getByCompany,
 };

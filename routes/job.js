@@ -6,6 +6,7 @@ const {
   updateJob,
   getMyJobs,
   deleteJob,
+  getByCompany,
 } = require("../controllers/job");
 const protectAuth = require("../middleware/protectAuth");
 
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.route("/").get(getAllJobs).post(protectAuth, createJob);
 router.route("/myjobs").get(protectAuth, getMyJobs);
+router.route("/company/:companyName").get(getByCompany);
 router
   .route("/:jobId")
   .get(getJob)
