@@ -10,10 +10,14 @@ const {
 } = require("../controllers/job");
 const protectAuth = require("../middleware/protectAuth");
 const categoryFilter = require("../middleware/categoryFilter");
+const queryFilter = require("../middleware/queryFilter");
 
 const router = express.Router();
 
-router.route("/").get(categoryFilter, getAllJobs).post(protectAuth, createJob);
+router
+  .route("/")
+  .get(categoryFilter, queryFilter, getAllJobs)
+  .post(protectAuth, createJob);
 router.route("/myjobs").get(protectAuth, getMyJobs);
 router.route("/company/:companyName").get(getByCompany);
 router
