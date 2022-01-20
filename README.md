@@ -1,7 +1,8 @@
 #
 
-Backend Code for web app, login, register, CRUD operations, jobs api
+Backend Code for jobs-gi app, login, register, JWT auth, CRUD, Create new job, update existing job, get all jobs
 
 ##
+Stack:
 
 Node, Express, Mongoose, MongoDBAtlas, JWT
